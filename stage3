@@ -1,0 +1,21 @@
+import socket
+import sys
+import itertools
+
+
+def allperm(password):
+    return list(map(''.join, itertools.product(*zip(password.lower(), password.upper()))))
+
+
+with socket.socket() as new_socket:
+    args = sys.argv
+    new_socket.connect((args[1], int(args[2])))
+    with open('stage3_passwords.txt', 'r', encoding='utf-8') as passwords_file:
+        passwords = passwords_file.readlines()
+        passwords = [i.strip() for i in passwords]
+        for i in passwords:
+            for password in allperm(i):
+                new_socket.send(password.encode())
+                if new_socket.recv(1024).decode() == 'Connection success!':
+                    print(password)
+                    break
