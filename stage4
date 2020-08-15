@@ -11,7 +11,7 @@ with socket.socket() as new_socket:
     args = sys.argv
     new_socket.connect((args[1], int(args[2])))
     # new_socket.connect(('127.0.0.1', 9090))
-    with open('logins.txt', 'r', encoding='utf-8') as logins_file:
+    with open('stage4_logins.txt', 'r', encoding='utf-8') as logins_file:
         logins = logins_file.readlines()
         logins = [i.strip() for i in logins]
         for login in logins:
